@@ -87,6 +87,7 @@ func TestPprofHandlers(t *testing.T) {
 	if err != nil {
 		t.Fatalf("http request for profiling data failed: %s", err)
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode != http.StatusOK {
 		t.Fatalf("expected http status code %d, got: %d", http.StatusOK, res.StatusCode)

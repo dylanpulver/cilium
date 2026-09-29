@@ -94,6 +94,7 @@ func ConfigureAndFetchMetrics(t *testing.T, testName string, metricCfg []string,
 
 		resp, err := http.Get("http://" + srv.Listener.Addr().String() + "/metrics")
 		require.NoError(t, err)
+		defer resp.Body.Close()
 		require.Equal(t, http.StatusOK, resp.StatusCode)
 
 		assertMetricsFromServer(t, resp.Body, exportedMetrics)
@@ -359,6 +360,7 @@ func ConfigureAndFetchDynamicMetrics(t *testing.T, testName string, exportedMetr
 
 		resp, err := http.Get("http://" + srv.Listener.Addr().String() + "/metrics")
 		require.NoError(t, err)
+		defer resp.Body.Close()
 		require.Equal(t, http.StatusOK, resp.StatusCode)
 
 		assertMetricsFromServer(t, resp.Body, exportedMetrics)
